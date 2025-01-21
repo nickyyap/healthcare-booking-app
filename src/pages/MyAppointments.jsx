@@ -11,6 +11,7 @@ export default function MyAppointments() {
     const [currentAppointment, setCurrentAppointment] = useState(null);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [appointmentToDelete, setAppointmentToDelete] = useState(null);
+    const [historyAppointments, setHistoryAppointments] = useState([]);
     const [formData, setFormData] = useState({
         doctor_id: "",
         medical_department: "",
@@ -33,11 +34,14 @@ export default function MyAppointments() {
         }
 
         try {
-            const response = await fetch(`${API_URL}/appointments/${patientId}`);
+            const response = await fetch(`${API_URL}/appointments/patient/${patientId}`);
 
             if (response.ok) {
                 const data = await response.json();
-                setAppointments(data);
+                const pending = data.filter(app => app.status === "pending");
+                const history = data.filter(app => app.status === "completed" || app.status === "cancelled");
+                setAppointments(pending);
+                setHistoryAppointments(history);
             } else {
                 const errorData = await response.json();
                 setAlertVariant("danger");
@@ -155,6 +159,19 @@ export default function MyAppointments() {
         }
     };
 
+    const getStatus = (status) => {
+        switch (status) {
+            case "completed":
+                return "border-success text-success";
+            case "cancelled":
+                return "border-danger text-danger";
+            case "pending":
+                return "border-warning text-dark";
+            default:
+                return "border-secondary text-white";
+        }
+    };
+
     useEffect(() => {
         if (alertMessage) {
             const timer = setTimeout(() => {
@@ -166,27 +183,30 @@ export default function MyAppointments() {
 
     return (
         <>
-            <Navbar />
             <Container>
-                <h1 className="text-center mb-5">My Appointments</h1>
+                <Navbar />
+                <h1 className="text-center mb-5 fw-bold">My Appointments</h1>
                 {alertMessage && (
                     <Alert variant={alertVariant} onClose={() => setAlertMessage("")} dismissible>{alertMessage}</Alert>
                 )}
+                <h3 className="mb-4">Upcoming Appointments</h3>
                 {appointments.length === 0 ? (
                     <Alert variant="info" className="mt-4">
-                        You have no appointments.
+                        You have no upcominng appointments.
                     </Alert>
                 ) : (
                     <ListGroup>
                         {appointments.map((appointment) => (
                             <ListGroup.Item
                                 key={appointment.id}
-                                className="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4">
+                                className="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4 appointment-list-patient border">
                                 <div className="d-flex flex-column p-4">
-                                    <h4 className="mb-4">{appointment.medical_department}</h4>
-                                    <h5>{formatDate(appointment.appointment_date)} - {appointment.appointment_time}</h5>
-                                    <p><strong>Doctor: {appointment.doctor_name}</strong></p>
-                                    <p>{appointment.appointment_purpose}</p>
+                                    <h4 className="fw-bold d-flex align-items-center">{appointment.medical_department.toUpperCase()}
+                                        <span className="badge mb-2 text-primary" style={{ fontSize: "10px" }}>UPCOMING</span>
+                                    </h4>
+                                    <p className="mb-4 text-muted"><strong>Dr. {appointment.doctor_name}</strong></p>
+                                    <h4><i className="bi bi-calendar3 me-2"></i>{formatDate(appointment.appointment_date)} <i className="bi bi-clock-fill me-1 ms-3"></i>{appointment.appointment_time}</h4>
+                                    <p className="mt-2"><strong>Purpose:</strong> {appointment.appointment_purpose}</p>
                                 </div>
 
                                 <div className="mt-3 mt-md-0 d-flex gap-2">
@@ -204,6 +224,32 @@ export default function MyAppointments() {
                                         onClick={() => handleDeleteConfirm(appointment.id)}>
                                         <i className="bi bi-trash"></i>
                                     </Button>
+                                </div>
+                            </ListGroup.Item>
+                        ))}
+                    </ListGroup>
+                )}
+
+                <h3 className="text-secondary mb-4">Appointments History</h3>
+                {historyAppointments.length === 0 ? (
+                    <Alert variant="info" className="mt-4">
+                        You have no past appointments.
+                    </Alert>
+                ) : (
+                    <ListGroup>
+                        {historyAppointments.map((appointment) => (
+                            <ListGroup.Item
+                                key={appointment.id}
+                                className="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4 text-muted border">
+                                <div className="d-flex flex-column p-4">
+                                    <h4 className="fw-bold">{appointment.medical_department.toUpperCase()}
+                                        <span className={`badge mb-2 ${getStatus(appointment.status)}`} style={{ fontSize: "10px" }}>
+                                            {appointment.status.toUpperCase()}
+                                        </span>
+                                    </h4>
+                                    <p className="mb-4"><strong>Dr. {appointment.doctor_name}</strong></p>
+                                    <h4><i className="bi bi-calendar3 me-2"></i>{formatDate(appointment.appointment_date)} <i className="bi bi-clock-fill me-1 ms-3"></i>{appointment.appointment_time}</h4>
+                                    <p className="mt-2"><strong>Purpose:</strong> {appointment.appointment_purpose}</p>
                                 </div>
                             </ListGroup.Item>
                         ))}
@@ -251,7 +297,6 @@ export default function MyAppointments() {
                                     <option value="Andrology">Andrology</option>
                                     <option value="Cardiology">Cardiology</option>
                                     <option value="Dentistry">Dentistry</option>
-                                    <option value="Dermatology">Dermatology</option>
                                     <option value="Endocrinology">Endocrinology</option>
                                     <option value="Gastroenterology / Hepatology">Gastroenterology / Hepatology</option>
                                     <option value="General Medicine/Internal Medicine">General Medicine/Internal Medicine</option>

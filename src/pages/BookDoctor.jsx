@@ -157,7 +157,6 @@ export default function BookDoctor() {
                             <option value="Andrology">Andrology</option>
                             <option value="Cardiology">Cardiology</option>
                             <option value="Dentistry">Dentistry</option>
-                            <option value="Dermatology">Dermatology</option>
                             <option value="Endocrinology">Endocrinology</option>
                             <option value="Gastroenterology / Hepatology">Gastroenterology / Hepatology</option>
                             <option value="General Medicine/Internal Medicine">General Medicine/Internal Medicine</option>

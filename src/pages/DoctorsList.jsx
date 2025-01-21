@@ -77,10 +77,10 @@ export default function DoctorsList() {
 
     return (
         <>
-            <Navbar />
             <Container>
+                <Navbar />
                 <Row>
-                    <h1 className="text-center mb-5">Our Specialist</h1>
+                    <h1 className="text-center mb-5 fw-bold">Our Specialist</h1>
                     {doctors.map((doctor) => (
                         <Col key={doctor.firebase_uid} xs={12} sm={6} md={4} lg={3} className="mb-4">
                             <Card className="d-flex flex-column h-100 doctor-card">
@@ -88,18 +88,26 @@ export default function DoctorsList() {
                                     src={doctor.photo_url || defaultDisplayPic}
                                     variant="top"
                                     alt="Doctor Image"
-                                    style={{ height: "300px", objectFit: "cover" }}
+                                    style={{ height: "25rem", 
+                                        objectFit: "cover" }}
                                 />
                                 <Card.Body className="d-flex flex-column">
-                                    <Card.Title style={{ textTransform: "uppercase" }}>{doctor.full_name}</Card.Title>
+                                    <Card.Title className="fw-bold">Dr. {doctor.full_name}</Card.Title>
                                     <Card.Text>
-                                        <p className="mb-2"><strong>Specialty:</strong> {doctor.specialty} <br /></p>
-                                        <p className="mb-2"><strong>Qualification:</strong> {doctor.qualification} <br /></p>
-                                        <p className="mb-2"><strong>Office Hours:</strong> {doctor.office_hours} <br /></p>
-                                        <p className="mb-2"><strong>Languages Spoken:</strong> {doctor.languages_spoken} <br /></p>
-                                        <p className="mb-2"><strong>Email:</strong> {doctor.email} <br /></p>
+                                        <p className="mb-1 fw-bold text-muted"> {doctor.specialty}
+                                            <span className="badge mb-2 ms-2 fw-light" style={{
+                                                backgroundColor: "white",
+                                                border: "1px solid black",
+                                                color: "black",
+                                                padding: "0.2em 0.6em",
+                                                borderRadius: "0.25em"
+                                            }}>{doctor.experience_years} Years</span></p><br />
+                                        <p className="mb-2"><strong><i className="bi bi-mortarboard-fill me-1"></i></strong> {doctor.qualification} <br /></p>
+                                        <p className="mb-2"><strong><i className="bi bi-clock-fill me-1"></i></strong> {doctor.office_hours} <br /></p>
+                                        <p className="mb-2"><strong><i className="bi bi-translate me-1"></i></strong> {doctor.languages_spoken} <br /></p>
+                                        <p className="mb-2"><strong><i className="bi bi-envelope-fill me-1"></i></strong> {doctor.email} <br /></p>
                                     </Card.Text>
-                                    <Button className="mt-auto" variant="dark" onClick={() => handleBookDoctor(doctor)}>
+                                    <Button className="mt-auto text-white" variant="transparent" style={{backgroundColor: "rgb(133, 178, 185)"}} onClick={() => handleBookDoctor(doctor)}>
                                         Book Appointment
                                     </Button>
                                 </Card.Body>

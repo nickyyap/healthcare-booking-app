@@ -201,8 +201,8 @@ export default function ProfilePage() {
                         const data = await response.json();
                         setDoctorData(data);
                     } else {
-                        setAlertVariant("danger");
-                        setAlertMessage("Error fetching doctor data.");
+                        setAlertVariant("info");
+                        setAlertMessage("Update your personal information.");
                     }
                 } catch (error) {
                     console.error("Error fetching doctor data:", error);
@@ -220,8 +220,8 @@ export default function ProfilePage() {
                         const data = await response.json();
                         setPatientData(data);
                     } else {
-                        setAlertVariant("danger");
-                        setAlertMessage("Error fetching patient data.");
+                        setAlertVariant("info");
+                        setAlertMessage("Update your personal information.");
                     }
                 } catch (error) {
                     console.error("Error fetching patient data:", error);
@@ -253,10 +253,10 @@ export default function ProfilePage() {
 
     return (
         <>
-            <Navbar />
-            <Container className="d-flex justify-content-center align-items-center text-center">
+            <Container>
+                <Navbar />
                 {/*Profile Section*/}
-                <Row>
+                <Row className="d-flex justify-content-center align-items-center text-center">
                     <div className="profile-container p-4 text-center">
                         {alertMessage && (
                             <Alert
@@ -267,7 +267,7 @@ export default function ProfilePage() {
                                 {alertMessage}
                             </Alert>
                         )}
-                        <h1 className="mb-5">My Profile</h1>
+                        <h1 className="mb-5 fw-bold">My Profile</h1>
                         <div className="profile-pic-container mx-auto" style={{ width: "150px", height: "150px" }}>
                             <Image
                                 src={profilePicUrl}
@@ -295,7 +295,7 @@ export default function ProfilePage() {
                         </div>
                     </div>
                     <p className="mt-5 fw-bold" style={{ textTransform: "uppercase" }}>{role}</p>
-                    <h1 style={{ textTransform: "uppercase" }}>{fullName}</h1>
+                    <h1 className="fw-bold" style={{ textTransform: "uppercase" }}>{fullName}</h1>
 
                     {role === "doctor" && doctorData ? (
                         <div className="doctor-data mt-4 d-flex justify-content-center">
@@ -310,7 +310,7 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="row mb-3">
                                     <div className="col-6 text-start"><strong>Years of Experience:</strong></div>
-                                    <div className="col-6 text-start">{doctorData.experience_years} year/s</div>
+                                    <div className="col-6 text-start">{doctorData.experience_years} Year/s</div>
                                 </div>
                                 <div className="row mb-3">
                                     <div className="col-6 text-start"><strong>Office Hours:</strong></div>
@@ -329,13 +329,13 @@ export default function ProfilePage() {
                             <p className="fw-bold">{patientData.gender}</p>
                         </div>
                     ) : null}
-                    <p className="fw-light mb-4" style={{ border: "0.5px solid black", padding: '5px', borderRadius: "10px", width: "300px", margin: "0 auto" }}>{currentUser.email}</p>
+                    <p className="fw-light mb-4" style={{ border: "0.5px solid black", padding: '5px', borderRadius: "10px", width: "300px", margin: "0 auto" }}><i className="bi bi-envelope-fill me-2"> {currentUser.email}</i></p>
                     <div className="d-flex flex-column align-items-center">
                         <Button className="mt-2 btn-md w-100" variant="dark" style={{ borderRadius: "20px" }} onClick={() => setShowModal(true)}>
                             Add Profile Detail
                         </Button>
                         <Button className="mt-2 btn-md w-100" style={{ borderRadius: "20px" }} onClick={handleLogout} variant="danger">
-                            Log out
+                            Sign out
                         </Button>
                     </div>
 
@@ -360,14 +360,31 @@ export default function ProfilePage() {
 
                             {isDoctor ? (
                                 <>
-                                    <Form.Group controlId="specialty">
+                                    <Form.Group controlId="specialty" className="mb-3">
                                         <Form.Label>Specialty</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Specialty"
+                                        <Form.Select
                                             name="specialty"
                                             value={formData.specialty}
-                                            onChange={handleInputChange} />
+                                            onChange={handleInputChange}>
+                                            <option value="">--- Select Medical Department ---</option>
+                                            <option value="Allergy and Immunology">Allergy and Immunology</option>
+                                            <option value="Andrology">Andrology</option>
+                                            <option value="Cardiology">Cardiology</option>
+                                            <option value="Dentistry">Dentistry</option>
+                                            <option value="Endocrinology">Endocrinology</option>
+                                            <option value="Gastroenterology / Hepatology">Gastroenterology / Hepatology</option>
+                                            <option value="General Medicine/Internal Medicine">General Medicine/Internal Medicine</option>
+                                            <option value="General Surgery">General Surgery</option>
+                                            <option value="Hematology / Pathology">Hematology / Pathology</option>
+                                            <option value="Infectious Diseases">Infectious Diseases</option>
+                                            <option value="Neurology">Neurology</option>
+                                            <option value="Obstetrics and Gynecology (OB/GYN)">Obstetrics and Gynecology (OB/GYN)</option>
+                                            <option value="Oncology">Oncology</option>
+                                            <option value="Otolaryngology (ENT)">Otolaryngology (ENT)</option>
+                                            <option value="Pediatrics">Pediatrics</option>
+                                            <option value="Psychiatry">Psychiatry</option>
+                                            <option value="Radiology">Radiology</option>
+                                        </Form.Select>
                                     </Form.Group>
                                     <Form.Group controlId="qualification">
                                         <Form.Label>Qualification</Form.Label>
