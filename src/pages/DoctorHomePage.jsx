@@ -48,7 +48,7 @@ export default function DoctorHomePage() {
                                     <i className="bi bi-chat-right-text" style={{ fontSize: "50px" }}></i>
                                     <Card.Title className="fw-bold mt-3">Doctor Forum</Card.Title>
                                     <Card.Text>Engage in discussions and collaborate with fellow doctors.</Card.Text>
-                                    <Button href="/messages" variant="info" className="text-white">
+                                    <Button variant="info" className="text-white">
                                         Join
                                     </Button>
                                 </Card.Body>
@@ -60,7 +60,7 @@ export default function DoctorHomePage() {
                                     <i className="bi bi-clipboard-data" style={{ fontSize: "50px" }}></i>
                                     <Card.Title className="fw-bold mt-3">Analytics</Card.Title>
                                     <Card.Text>Track your performance and patient trends.</Card.Text>
-                                    <Button href="/analytics" variant="info" className="text-white">
+                                    <Button variant="info" className="text-white">
                                         View
                                     </Button>
                                 </Card.Body>
@@ -72,7 +72,7 @@ export default function DoctorHomePage() {
                                     <i className="bi bi-card-checklist" style={{ fontSize: "50px" }}></i>
                                     <Card.Title className="fw-bold mt-3">My Schedule</Card.Title>
                                     <Card.Text>Organize your schedule and manage your availability.</Card.Text>
-                                    <Button href="/schedule" variant="info" className="text-white">
+                                    <Button variant="info" className="text-white">
                                         Schedule
                                     </Button>
                                 </Card.Body>
@@ -84,7 +84,7 @@ export default function DoctorHomePage() {
                                     <i className="bi bi-list-stars" style={{ fontSize: "50px" }}></i>
                                     <Card.Title className="fw-bold mt-3">Patient Reviews</Card.Title>
                                     <Card.Text>Review feedback from your patients.</Card.Text>
-                                    <Button href="/schedule" variant="info" className="text-white">
+                                    <Button variant="info" className="text-white">
                                         View
                                     </Button>
                                 </Card.Body>
