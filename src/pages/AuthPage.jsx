@@ -1,10 +1,11 @@
-import { Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { Row, Col, Form, Button, Alert, Image } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../components/AuthProvider"; 
+import { AuthContext } from "../components/AuthProvider";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
+import logo from "../assets/images/logo.jpg";
 
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState(true);
@@ -27,7 +28,7 @@ export default function AuthPage() {
     const handleSignUp = async (event) => {
         event.preventDefault();
         try {
-            // Firebase Authentication
+            //Firebase Authentication
             const res = await createUserWithEmailAndPassword(auth, email, password);
             console.log(res); // Log the result to verify user creation
 
@@ -37,10 +38,6 @@ export default function AuthPage() {
                 fullName: fullName,
                 role: role,
             });
-
-            /*await res.user.updateProfile({
-                displayName: fullName,
-            })*/
 
             setAlertVariant("success");
             setAlertMessage("Sign up successful. Please log in.");
@@ -73,6 +70,14 @@ export default function AuthPage() {
     return (
         <Row className="d-flex justify-content-center align-items-center vh-100">
             <Col sm={4} className="text-center">
+                <div className="d-flex justify-content-center align-items-center mb-3">
+                    <Image
+                        src={logo}
+                        roundedCircle
+                        style={{ width: "100px", height: "100px", cursor: "pointer" }}
+                        className="mb-2"
+                    />
+                </div>
                 <h1 className="fw-bold mb-4">{isLogin ? "Login" : "Sign Up"}</h1>
                 {alertMessage && (
                     <Alert

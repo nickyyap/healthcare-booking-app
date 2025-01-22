@@ -209,7 +209,7 @@ export default function MyAppointments() {
                                     <p className="mt-2"><strong>Purpose:</strong> {appointment.appointment_purpose}</p>
                                 </div>
 
-                                <div className="mt-3 mt-md-0 d-flex gap-2">
+                                <div className="mt-3 mt-md-0 d-flex gap-2 p-4">
                                     <Button
                                         variant="secondary"
                                         size="md"

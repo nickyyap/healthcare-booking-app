@@ -235,7 +235,6 @@ export default function ProfilePage() {
 
     const handleLogout = () => {
         auth.signOut()
-        //navigate("/login")
     };
 
     useEffect(() => {
@@ -248,7 +247,7 @@ export default function ProfilePage() {
     }, [alertMessage]);
 
     if (loading) {
-        return <p>Loading...</p>; // Show a loading message while waiting for auth state
+        return <p>Loading...</p>; //Show a loading message while waiting for auth state
     }
 
     return (
@@ -259,11 +258,7 @@ export default function ProfilePage() {
                 <Row className="d-flex justify-content-center align-items-center text-center">
                     <div className="profile-container p-4 text-center">
                         {alertMessage && (
-                            <Alert
-                                variant={alertVariant}
-                                onClose={() => setAlertMessage("")}
-                                dismissible
-                            >
+                            <Alert variant={alertVariant} onClose={() => setAlertMessage("")} dismissible>
                                 {alertMessage}
                             </Alert>
                         )}
