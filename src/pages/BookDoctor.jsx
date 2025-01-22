@@ -108,7 +108,7 @@ export default function BookDoctor() {
         <>
             <Navbar />
             <Container>
-                <h1 className="text-center mb-4">Patient Appointment Form</h1>
+                <h1 className="text-center mb-5 fw-bold">Patient Appointment Form</h1>
                 {alertMessage && (
                     <Alert variant={alertVariant} onClose={() => setAlertMessage("")} dismissible>{alertMessage}</Alert>
                 )}
@@ -203,7 +203,7 @@ export default function BookDoctor() {
                             onChange={handleChange}
                             required />
                     </Form.Group>
-                    <Button className="mt-4 btn-md w-100" variant="dark" type="submit">Schedule</Button>
+                    <Button className="mt-4 btn-md w-100 text-white mb-2" variant="transparent" style={{ backgroundColor: "rgb(133, 178, 185)" }} type="submit">Schedule</Button>
                 </Form>
             </Container>
         </>

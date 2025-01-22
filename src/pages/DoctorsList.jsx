@@ -88,8 +88,10 @@ export default function DoctorsList() {
                                     src={doctor.photo_url || defaultDisplayPic}
                                     variant="top"
                                     alt="Doctor Image"
-                                    style={{ height: "25rem", 
-                                        objectFit: "cover" }}
+                                    style={{
+                                        height: "25rem",
+                                        objectFit: "cover"
+                                    }}
                                 />
                                 <Card.Body className="d-flex flex-column">
                                     <Card.Title className="fw-bold">Dr. {doctor.full_name}</Card.Title>
@@ -107,7 +109,7 @@ export default function DoctorsList() {
                                         <p className="mb-2"><strong><i className="bi bi-translate me-1"></i></strong> {doctor.languages_spoken} <br /></p>
                                         <p className="mb-2"><strong><i className="bi bi-envelope-fill me-1"></i></strong> {doctor.email} <br /></p>
                                     </Card.Text>
-                                    <Button className="mt-auto text-white" variant="transparent" style={{backgroundColor: "rgb(133, 178, 185)"}} onClick={() => handleBookDoctor(doctor)}>
+                                    <Button className="mt-auto text-white" variant="transparent" style={{ backgroundColor: "rgb(133, 178, 185)" }} onClick={() => handleBookDoctor(doctor)}>
                                         Book Appointment
                                     </Button>
                                 </Card.Body>

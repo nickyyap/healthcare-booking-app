@@ -76,7 +76,7 @@ export default function Report() {
                                     <Card.Text>
                                         You can view and download your report <b>{reportName}</b>.
                                     </Card.Text>
-                                    <Button variant="primary" href={reportUrl} downlaod>View Report</Button>
+                                    <Button variant="transparent" style={{ backgroundColor: "rgb(133, 178, 185)", color: "white" }} href={reportUrl} downlaod>View Report</Button>
                                 </>
                             ) : (
                                 <p>No report available.</p>
