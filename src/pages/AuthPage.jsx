@@ -1,6 +1,5 @@
 import { Row, Col, Form, Button, Alert, Image } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../components/AuthProvider";
+import { useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
@@ -17,11 +16,6 @@ export default function AuthPage() {
     const [alertMessage, setAlertMessage] = useState("");
     const navigate = useNavigate();
     const auth = getAuth();
-    const { currentUser } = useContext(AuthContext);
-
-    useEffect(() => {
-        if (currentUser) navigate("/profile");
-    }, [currentUser, navigate]);
 
     const toggleForm = () => setIsLogin(!isLogin);
 
@@ -43,6 +37,9 @@ export default function AuthPage() {
             setAlertMessage("Sign up successful. Please log in.");
             setTimeout(() => setAlertMessage(""), 5000);
             navigate("/login")
+            setFullName("");
+            setEmail("");
+            setPassword("");
         } catch (error) {
             console.error(error);
             setAlertVariant("danger");
@@ -69,7 +66,7 @@ export default function AuthPage() {
 
     return (
         <Row className="d-flex justify-content-center align-items-center vh-100">
-            <Col sm={4} className="text-center">
+            <Col xs={10} sm={4} md={6} lg={4} xl={3} className="text-center">
                 <div className="d-flex justify-content-center align-items-center mb-3">
                     <Image
                         src={logo}
