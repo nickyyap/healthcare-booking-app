@@ -1,12 +1,11 @@
 import Navbar from "../components/Navbar";
 import { Container, Row, Col, Card, Button, Spinner, Modal } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { ref, getDownloadURL, listAll } from "firebase/storage"; // Import listAll
 import { storage } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import defaultDisplayPic from "../assets//images/default-display-pic.jpg";
 import { getAuth } from "firebase/auth";
-import {AuthContext} from "../components/AuthProvider"
 
 export default function DoctorsList() {
     const [doctors, setDoctors] = useState([]);
@@ -15,14 +14,6 @@ export default function DoctorsList() {
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const navigate = useNavigate();
     const API_URL = import.meta.env.VITE_API_URL;
-
-    const currentUser = useContext(AuthContext)
-
-    useEffect(() => {
-        if(!currentUser) {
-            navigate("/login");
-        }
-    }, [currentUser, navigate])
 
     useEffect(() => {
         const fetchDoctors = async () => {
