@@ -1,6 +1,6 @@
 import { Row, Col, Form, Button, Alert, Image } from "react-bootstrap";
 import { useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
@@ -64,16 +64,6 @@ export default function AuthPage() {
         }
     };
 
-    const provider = new GoogleAuthProvider();
-    const handleGoogleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            await signInWithPopup(auth, provider);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     return (
         <Row className="d-flex justify-content-center align-items-center vh-100">
             <Col xs={10} sm={4} md={6} lg={4} xl={3} className="text-center">
@@ -95,7 +85,7 @@ export default function AuthPage() {
                         {alertMessage}
                     </Alert>
                 )}
-                <Button className="rounded-pill mt-4" variant="outline-dark" size="lg" style={{ width: "100%" }} onClick={handleGoogleLogin}>
+                <Button className="rounded-pill mt-4" variant="outline-dark" size="lg" style={{ width: "100%" }}>
                     <i className="bi bi-google"></i> Continue with Google
                 </Button>
                 <p className="mb-4 mt-4">or</p>
