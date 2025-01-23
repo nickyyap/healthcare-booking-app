@@ -11,6 +11,8 @@ export default function DoctorAppointments() {
     const [appointments, setAppointments] = useState([]);
     const [alertVariant, setAlertVariant] = useState("");
     const [alertMessage, setAlertMessage] = useState("");
+    const [alertEmailVariant, setAlertEmailVariant] = useState("");
+    const [alertEmailMessage, setAlertEmailMessage] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [file, setFile] = useState(null);
     const [selectedPatient, setSelectedPatient] = useState(null);
@@ -143,7 +145,7 @@ export default function DoctorAppointments() {
         }
 
         try {
-            const fileUrl = await uploadFileToFirebase(patient.patient_id);  // Ensure correct patient_id is passed
+            const fileUrl = await uploadFileToFirebase(patient.patient_id);
             if (!fileUrl) {
                 setAlertVariant("danger");
                 setAlertMessage("Failed to upload file.");
@@ -165,8 +167,8 @@ export default function DoctorAppointments() {
             setAlertMessage("Report uploaded and email sent!");
         } catch (error) {
             console.error("Error sending email:", error);
-            setAlertVariant("danger");
-            setAlertMessage("Error sending email.");
+            setAlertEmailVariant("danger");
+            setAlertEmailMessage("File size is too big. Please upload a file that does not exceed 5KB.");
         }
     };
 
@@ -175,13 +177,14 @@ export default function DoctorAppointments() {
     }, [doctorId, API_URL]);
 
     useEffect(() => {
-        if (alertMessage) {
+        if (alertMessage, alertEmailMessage) {
             const timer = setTimeout(() => {
                 setAlertMessage("");
+                setAlertEmailMessage("");
             }, 5000);
             return () => clearTimeout(timer);
         }
-    }, [alertMessage]);
+    }, [alertMessage, alertEmailMessage]);
 
     return (
         <>
@@ -268,6 +271,11 @@ export default function DoctorAppointments() {
                     <Modal.Title>Upload Patient Report</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {alertEmailMessage && (
+                        <Alert variant={alertEmailVariant} onClose={() => setAlertEmailMessage("")} dismissible>
+                            {alertEmailMessage}
+                        </Alert>
+                    )}
                     <p className="text-muted">
                         Please fill out the form below to upload the patient&apos;s report.
                         The report will be sent directly to the patient&apos;s email address provided during the appointment.
