@@ -179,7 +179,8 @@ export default function Navbar() {
                     <Button
                         variant="transparent"
                         style={{ width: "100px", height: "40px", fontSize: "15px", backgroundColor: "rgb(133, 178, 185)", color: "white" }}
-                        className="fw-medium me-2 mb-2 mb-sm-0">
+                        className="fw-medium me-2 mb-2 mb-sm-0"
+                        href="/login">
                         <i className="bi bi-box-arrow-in-right me-2"></i>Log in
                     </Button>
                 )}
