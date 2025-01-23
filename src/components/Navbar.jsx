@@ -65,13 +65,23 @@ export default function Navbar() {
             </div>
 
             {/*Mobile Notification Icon*/}
-            <Button
+            {currentUser ? (
+                <Button
                 variant="transparent"
                 className="d-lg-none position-absolute top-0 end-0 me-3 mt-3"
                 style={{ width: "50px", height: "40px", fontSize: "14px", backgroundColor: "rgb(133, 178, 185)", color: "white" }}
             >
                 <i className="bi bi-bell"></i>
             </Button>
+            ) : (
+                <Button
+                        variant="transparent"
+                        style={{ width: "70px", height: "40px", fontSize: "15px", backgroundColor: "rgb(133, 178, 185)", color: "white" }}
+                        className="d-lg-none position-absolute top-0 end-0 me-3 mt-3 fw-medium"
+                        href="/login">
+                        Log in
+                    </Button>
+            )}
 
             {/*Desktop Navigation Links*/}
             <Nav className="d-custom-flex align-items-start gap-1 fw-medium" style={{ fontSize: "14px" }}>
@@ -181,7 +191,7 @@ export default function Navbar() {
                         style={{ width: "100px", height: "40px", fontSize: "15px", backgroundColor: "rgb(133, 178, 185)", color: "white" }}
                         className="fw-medium me-2 mb-2 mb-sm-0"
                         href="/login">
-                        <i className="bi bi-box-arrow-in-right me-2"></i>Log in
+                        Log in
                     </Button>
                 )}
             </div>
