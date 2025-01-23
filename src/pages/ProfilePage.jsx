@@ -255,7 +255,7 @@ export default function ProfilePage() {
             <Container>
                 <Navbar />
                 {/*Profile Section*/}
-                <Row className="d-flex justify-content-center align-items-center text-center">
+                <Row className="d-flex justify-content-center align-items-center text-center ms-1 me-1">
                     <div className="profile-container p-4 text-center">
                         {alertMessage && (
                             <Alert variant={alertVariant} onClose={() => setAlertMessage("")} dismissible>
@@ -321,7 +321,7 @@ export default function ProfilePage() {
 
                     ) : role === "patient" && patientData ? (
                         <div className="patient-data">
-                            <p className="fw-bold">{patientData.gender}</p>
+                            <p className="fw-bold"> <i className="bi bi-person-check me-2"></i>{patientData.gender}</p>
                         </div>
                     ) : null}
                     <p className="fw-light mb-4" style={{ border: "0.5px solid black", padding: '5px', borderRadius: "10px", width: "300px", margin: "0 auto" }}><i className="bi bi-envelope-fill me-2"> {currentUser.email}</i></p>
@@ -329,7 +329,7 @@ export default function ProfilePage() {
                         <Button className="mt-2 btn-md w-100" variant="dark" style={{ borderRadius: "20px" }} onClick={() => setShowModal(true)}>
                             Add Profile Detail
                         </Button>
-                        <Button className="mt-2 btn-md w-100" style={{ borderRadius: "20px" }} onClick={handleLogout} variant="danger">
+                        <Button className="mt-2 btn-md w-100 mb-3" style={{ borderRadius: "20px" }} onClick={handleLogout} variant="danger">
                             Sign out
                         </Button>
                     </div>

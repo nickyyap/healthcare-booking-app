@@ -48,7 +48,7 @@ export default function HomePage() {
                 <Navbar />
                 <Row className="flex-column-reverse flex-md-row align-items-center rounded custom-bg-color" style={{ paddingTop: "100px" }}>
                     <Col xs={12} md={6} className="text-center text-white mb-4">
-                        <h1 className="text-center text-white fw-bold" style={{ lineHeight: "1.5" }}>Schedule Your Appointment <br />With Trusted Doctors</h1>
+                        <h1 className="text-center text-white fw-bold ms-3 mt-2" style={{ lineHeight: "1.5" }}>Schedule Your Appointment <br />With Trusted Doctors</h1>
                         <p className="mb-4 me-4 ms-4">Explore our wide range of trusted doctors and easily schedule your appointment without any hassle.</p>
                         <div className="d-flex flex-column align-items-center">
                             <a href="/doctors" className="btn btn-info p-3 rounded-pill text-white custom-button">Schedule Appointment <i className="bi bi-arrow-right"></i></a>

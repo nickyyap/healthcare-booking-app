@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Button, Nav, Image, Offcanvas } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.jpg";
@@ -14,31 +14,25 @@ export default function Navbar() {
     const [role, setRole] = useState(null);
     const { currentUser } = useContext(AuthContext);
 
-    useEffect(() => {
-        if (currentUser) {
-            const db = getFirestore();
-            const userRef = doc(db, "users", currentUser.uid);
-            getDoc(userRef)
-                .then((docSnap) => {
-                    if (docSnap.exists()) {
-                        setRole(docSnap.data().role);
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error dfetching user role:", error);
-                });
-        } else {
-            navigate("/login");
-        }
-    }, [currentUser, navigate])
+    if (currentUser) {
+        const db = getFirestore();
+        const userRef = doc(db, "users", currentUser.uid);
+        getDoc(userRef)
+            .then((docSnap) => {
+                if (docSnap.exists()) {
+                    setRole(docSnap.data().role);
+                }
+            })
+            .catch((error) => {
+                console.error("Error dfetching user role:", error);
+            });
+    } else {
+        navigate("/login");
+    }
+
 
     const toggleMenu = () => setShowMenu(!showMenu);
 
-    useEffect(() => {
-        if (!currentUser) {
-            navigate("/login")
-        }
-    }, [currentUser, navigate]);
 
     const handleLogout = () => {
         auth.signOut();
@@ -50,7 +44,7 @@ export default function Navbar() {
             {/*Hamburger Menu Icon*/}
             <Button
                 variant="link"
-                className="d-md-none position-absolute top-0 start-0 ms-3 mt-3"
+                className="d-lg-none position-absolute top-0 start-0 ms-3 mt-3"
                 onClick={toggleMenu}
                 aria-label="Open Menu"
             >
@@ -58,7 +52,7 @@ export default function Navbar() {
             </Button>
 
             {/*Logo Section*/}
-            <div className="d-flex flex-column flex-sm-row align-items-center justify-content-start mb-3 mb-sm-0">
+            <div className="d-flex flex-column flex-lg-row align-items-center justify-content-start mb-3 mb-sm-0">
                 <Image
                     src={logo}
                     roundedCircle
@@ -73,14 +67,14 @@ export default function Navbar() {
             {/*Mobile Notification Icon*/}
             <Button
                 variant="transparent"
-                className="d-md-none position-absolute top-0 end-0 me-3 mt-3"
+                className="d-lg-none position-absolute top-0 end-0 me-3 mt-3"
                 style={{ width: "50px", height: "40px", fontSize: "14px", backgroundColor: "rgb(133, 178, 185)", color: "white" }}
             >
                 <i className="bi bi-bell"></i>
             </Button>
 
             {/*Desktop Navigation Links*/}
-            <Nav className="d-none d-md-flex align-items-start gap-3 fw-medium">
+            <Nav className="d-custom-flex align-items-start gap-1 fw-medium" style={{ fontSize: "14px" }}>
                 {role === "patient" ? (
                     <>
                         <Nav.Item>
@@ -95,6 +89,9 @@ export default function Navbar() {
                         <Nav.Item>
                             <Nav.Link as={NavLink} to="/report" className="nav-link text-dark">REPORT</Nav.Link>
                         </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link as={NavLink} to="/profile" className="nav-link text-dark">PROFILE</Nav.Link>
+                        </Nav.Item>
                     </>
                 ) : role === "doctor" ? (
                     <>
@@ -104,11 +101,11 @@ export default function Navbar() {
                         <Nav.Item>
                             <Nav.Link as={NavLink} to="/doctorAppointments" className="nav-link text-dark">MY APPOINTMENTS</Nav.Link>
                         </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link as={NavLink} to="/profile" className="nav-link text-dark">PROFILE</Nav.Link>
+                        </Nav.Item>
                     </>
                 ) : null}
-                <Nav.Item>
-                    <Nav.Link as={NavLink} to="/profile" className="nav-link text-dark">PROFILE</Nav.Link>
-                </Nav.Item>
             </Nav>
 
             {/*Hamburger Menu*/}
@@ -161,20 +158,31 @@ export default function Navbar() {
             </Offcanvas>
 
             {/*Desktop Buttons*/}
-            <div className="d-none d-md-flex flex-column flex-sm-row align-items-center justify-content-between">
-                <Button
-                    variant="transparent"
-                    style={{ width: "50px", height: "40px", fontSize: "15px", backgroundColor: "rgb(133, 178, 185)", color: "white" }}
-                    className="fw-bold me-2 mb-2 mb-sm-0">
-                    <i className="bi bi-bell"></i>
-                </Button>
-                <Button
-                    variant="danger"
-                    style={{ width: "50px", height: "40px", fontSize: "15px" }}
-                    onClick={handleLogout}
-                    className="fw-medium">
-                    <i className="bi bi-box-arrow-right"></i>
-                </Button>
+            <div className="d-none d-lg-flex flex-column flex-sm-row align-items-center justify-content-between">
+                {currentUser ? (
+                    <>
+                        <Button
+                            variant="transparent"
+                            style={{ width: "50px", height: "40px", fontSize: "15px", backgroundColor: "rgb(133, 178, 185)", color: "white" }}
+                            className="fw-bold me-2 mb-2 mb-sm-0">
+                            <i className="bi bi-bell"></i>
+                        </Button>
+                        <Button
+                            variant="danger"
+                            style={{ width: "50px", height: "40px", fontSize: "15px" }}
+                            onClick={handleLogout}
+                            className="fw-medium">
+                            <i className="bi bi-box-arrow-right"></i>
+                        </Button>
+                    </>
+                ) : (
+                    <Button
+                        variant="transparent"
+                        style={{ width: "100px", height: "40px", fontSize: "15px", backgroundColor: "rgb(133, 178, 185)", color: "white" }}
+                        className="fw-medium me-2 mb-2 mb-sm-0">
+                        <i className="bi bi-box-arrow-in-right me-2"></i>Log in
+                    </Button>
+                )}
             </div>
         </div>
     );

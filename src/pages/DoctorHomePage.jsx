@@ -8,7 +8,7 @@ export default function DoctorHomePage() {
         <>
             <Container>
                 <Navbar />
-                <Row className="align-items-center rounded custom-bg-color">
+                <Row className="flex-column-reverse flex-md-row align-items-center rounded custom-bg-color">
                     <Col xs={12} md={6} className="text-center text-white mb-4">
                         <h1 className="text-center text-white fw-bold" style={{ lineHeight: "1.5" }}>
                             Welcome Back, Doctor!
@@ -28,7 +28,7 @@ export default function DoctorHomePage() {
                 </Row>
 
                 <Container>
-                    <h3 className="text-center text-muted mt-5 fw-bold mb-5">Your Dashboard</h3>
+                    <h3 className="text-center text-muted mt-5 fw-bold mb-5">Dashboard</h3>
                     <Row className="g-4 mb-4">
                         <Col xs={12} sm={6} md={3}>
                             <Card className="mx-auto h-100 shadow-sm text-center">
@@ -43,7 +43,7 @@ export default function DoctorHomePage() {
                             </Card>
                         </Col>
                         <Col xs={12} sm={6} md={3}>
-                            <Card className="text-center shadow-sm">
+                            <Card className=" mx-auto h-100 text-center shadow-sm">
                                 <Card.Body>
                                     <i className="bi bi-chat-right-text" style={{ fontSize: "50px" }}></i>
                                     <Card.Title className="fw-bold mt-3">Doctor Forum</Card.Title>
@@ -55,7 +55,7 @@ export default function DoctorHomePage() {
                             </Card>
                         </Col>
                         <Col xs={12} sm={6} md={3}>
-                            <Card className="text-center shadow-sm">
+                            <Card className="mx-auto h-100 text-center shadow-sm">
                                 <Card.Body>
                                     <i className="bi bi-clipboard-data" style={{ fontSize: "50px" }}></i>
                                     <Card.Title className="fw-bold mt-3">Analytics</Card.Title>

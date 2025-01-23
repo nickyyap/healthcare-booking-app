@@ -60,3 +60,20 @@
 .custom-button:hover {
     transform: translateY(-5px);
 }
+
+@media (min-width: 1024px) {
+    .d-custom-flex {
+        display: flex !important;
+    }
+}
+
+/*Hide the Nav component on smaller screens*/
+@media (max-width: 1023px) {
+    .d-custom-flex {
+        display: none !important;
+    }
+    .d-flex {
+        width: 100%;
+    }
+    
+}

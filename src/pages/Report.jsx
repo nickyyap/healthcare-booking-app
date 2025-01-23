@@ -28,8 +28,6 @@ export default function Report() {
             const fileList = await listAll(reportRef);
 
             if (fileList.items.length === 0) {
-                setAlertVariant("danger");
-                setAlertMessage("No report found.");
                 setLoading(false);
                 return;
             }
@@ -69,19 +67,19 @@ export default function Report() {
                     <p className="text-center">Loading ...</p>
                 ) : (
                     <Card className="text-center shadow p-3">
-                        <Card.Body>
-                            <Card.Title>Your report is ready</Card.Title>
                             {reportUrl ? (
                                 <>
+                                <Card.Body>
+                                <Card.Title>Your report is ready</Card.Title>
                                     <Card.Text>
                                         You can view and download your report <b>{reportName}</b>.
                                     </Card.Text>
                                     <Button variant="transparent" style={{ backgroundColor: "rgb(133, 178, 185)", color: "white" }} href={reportUrl} downlaod>View Report</Button>
+                                    </Card.Body>
                                 </>
                             ) : (
                                 <p>No report available.</p>
                             )}
-                        </Card.Body>
                     </Card>
                 )}
             </Container>
